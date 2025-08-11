@@ -300,3 +300,181 @@ a:hover {
         padding: 10px 12px;
     }
 }
+
+
+/* Contenedor general del navbar */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #1e1e2f;  /* Fondo oscuro */
+    padding: 20px 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* Logo */
+.navbar .logo {
+    height: 40px;
+    width: auto;
+}
+
+/* Lista de navegación */
+.navbar ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    gap: 20px;
+}
+
+/* Elementos de la lista */
+.navbar ul li {
+    display: flex;
+    align-items: center;
+}
+
+/* Links del navbar */
+.navbar ul li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover de los links */
+.navbar ul li a:hover {
+    background-color: #8a8ac4;
+    transform: scale(1.05);
+}
+
+/* Íconos dentro del link */
+.navbar ul li a img {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+/* Responsive: menú en columna */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .navbar ul {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+    .navbar ul li a {
+        width: 100%;
+    }
+}
+/* Footer */
+.footer {
+    background-color: #1e1e2f; /* Igual que el navbar */
+    color: #ffffff; /* Texto blanco */
+    text-align: center;
+    padding: 20px 20px;
+    font-weight: 500;
+    font-size: 14px;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
+}
+
+/* Links dentro del footer */
+.footer a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.footer a:hover {
+    color: #bbbbff; /* Un tono claro para hover */
+    text-decoration: underline;
+}
+
+
+.iconos{
+    width: 20px;
+     height: 20px; 
+     vertical-align: middle; 
+     margin-right: 5px;
+}
+
+/* Encabezado */
+.about-header {
+    padding: 30px 20px;
+    max-width: 800px;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+    text-align: center;
+    background-color: #e6e7ec;
+    color: rgb(0, 0, 0);
+}
+.about-header h1 {
+    margin-bottom: 10px;
+}
+
+/* Contenedor principal */
+.about-container {
+
+    padding: 30px 20px;
+    max-width: 800px;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+    background-color: #e6e7ec;
+
+}
+.about-text {
+    flex: 1;
+    min-width: 300px;
+}
+.about-text h2 {
+    color: #3f51b5;
+}
+.about-text p {
+    line-height: 1.6;
+}
+.about-image {
+    flex: 1;
+    min-width: 300px;
+}
+.about-image img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+/* Lista de funcionalidades */
+.features {
+    background-color: #ffffff;
+    padding: 30px 20px;
+    max-width: 800px;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.features h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #3f51b5;
+}
+.features ul {
+    list-style: none;
+    padding: 0;
+}
+.features ul li {
+    padding: 10px 0;
+    font-size: 16px;
+}

@@ -52,18 +52,30 @@ export async function buscarSuperheroesPorAtributoController(req, res) {
         const superheroes = await buscarSuperheroesPorAtributo(atributo, valor);
 
         if (superheroes.length === 0) {
-            return res.status(404).send({
-                mensaje: 'No se encontraron superhéroes con ese atributo'
+            /* return res.status(404).send({
+                            mensaje: 'No se encontraron superhéroes con ese atributo'
+                        });*/
+            return res.render('busquedaHeroes', {
+                superheroes: [],
+                errores: [{ message: 'No se encontraron superhéroes con ese atributo' }]
             });
         }
-
         const superheroesFormateados = renderizarListaSuperheroes(superheroes);
-        res.status(200).json(superheroesFormateados);
-    } catch (error) {
-        res.status(500).send({
-            mensaje: 'Error al buscar los superhéroes',
-            error: error.message
+
+        res.render('busquedaHeroes', {
+            superheroes: superheroesFormateados,
+            errores: []
         });
+        // res.status(200).json(superheroesFormateados);
+    } catch (error) {
+        /* res.status(500).send({
+             mensaje: 'Error al buscar los superhéroes',
+             error: error.message
+         });*/
+        console.error('❌ Error al guardar el héroe:', err.message);
+        const erroresStr = encodeURIComponent(JSON.stringify(err.errors || [{ message: err.message }]));
+
+        res.redirect(`/api/busquedaHeroes?errores=${erroresStr}`);
     }
 }
 
@@ -87,20 +99,28 @@ export async function obtenerSuperheroesMayoresDe30Controller(req, res) {
     }
 }
 
-export async function insertarSuperHeroeController(req, res) {
+/*export async function insertarSuperHeroeController(req, res) {
     try {
-
-        const new_superhero = await crearheroe(req.body);
-        // res.status(201).json(new_superhero); 
-        //solo con el fin de dar dinamismo al html que vamos a redirigir desde aqui al dashboard
+        await crearheroe(req.body);
         res.redirect('/api/dashboard');
     } catch (err) {
         console.error('❌ Error al guardar el héroe:', err.message);
-        return {
-            mensaje: 'Error al insertar nuevo superheroe',
-            error: err.message,
-            camposInvalidos: err.errors || null
-        };
+        req.session.errores = err.errors || [{ message: err.message }];
+        req.session.datosPrevios = req.body;
+        res.redirect('/api/formAgregarHero');
+    }
+}*/
+export async function insertarSuperHeroeController(req, res) {
+    try {
+        await crearheroe(req.body);
+        res.redirect('/api/dashboard');
+    } catch (err) {
+        console.error('❌ Error al guardar el héroe:', err.message);
+
+        // Pasamos errores como string en la URL
+        const erroresStr = encodeURIComponent(JSON.stringify(err.errors || [{ message: err.message }]));
+
+        res.redirect(`/api/formAgregarHero?errores=${erroresStr}`);
     }
 }
 
@@ -157,12 +177,33 @@ export async function eliminarSuperHeroeNombreController(req, res) {
     }
 
 }
-export async function formAgregarHeroController(req, res) {
-    res.render('agregarHero');
+/*export function formAgregarHeroController(req, res) {
+    let errores = [];
+    try {
+        if (req.query.errores) {
+            errores = JSON.parse(req.query.errores);
+        }
+    } catch (e) {
+        console.error("Error parseando errores:", e);
+    }
+    res.render('agregarHero', { errores, datosPrevios: {} });
+}*/
+
+export function formAgregarHeroController(req, res) {
+    let errores = [];
+    if (req.query.errores) {
+        try {
+            errores = JSON.parse(req.query.errores);
+        } catch (e) {
+            console.error("Error parseando errores:", e);
+        }
+    }
+
+    res.render('agregarHero', { errores });
 }
 export async function dashboardController(req, res) {
     try {
-        const superheroes = await obtenerSuperheroesMayoresDe30();
+        const superheroes = await obtenerTodosLosSuperheroes();
 
         if (superheroes.length === 0) {
             return res.status(404).send({
@@ -173,7 +214,6 @@ export async function dashboardController(req, res) {
         const superheroesFormateados = renderizarListaSuperheroes(superheroes);
         res.render('dashboard', { superheroes: superheroesFormateados });
 
-        // res.status(200).json(superheroesFormateados);
     } catch (error) {
         res.status(500).send({
             mensaje: 'Error al obtener superhéroes mayores de 30',
@@ -189,8 +229,9 @@ export async function formActualizarHeroeController(req, res) {
         if (!superheroe) {
             return res.status(404).send('Superhéroe no encontrado para editar.');
         }
-
-        res.render('editarHero', { info: superheroe });
+        const superheroesFormateados = renderizarSuperheroe(superheroe);
+        res.render('editarHero', { info: superheroesFormateados });
+       // res.render('editarHero', { info: superheroe });
     } catch (error) {
         console.error('Error en formActualizarHeroeController:', error);
         res.status(500).send('Error interno al cargar el formulario de edición.');
@@ -210,5 +251,29 @@ export async function confirmarEliminacionController(req, res) {
     } catch (error) {
         console.error('Error en confirmarEliminacionController:', error);
         res.status(500).send({ mensaje: 'Error interno al cargar la página de confirmación.' });
+    }
+}
+
+export async function aboutController(req, res) {
+    res.render('about');
+}
+
+export async function busquedaController(req, res) {
+    try {
+        const superheroes = await obtenerTodosLosSuperheroes();
+        if (superheroes.length === 0) {
+            return res.status(404).send({
+                mensaje: 'No se encontraron superhéroes mayores de 30 años'
+            });
+        }
+
+        const superheroesFormateados = renderizarListaSuperheroes(superheroes);
+        res.render('busquedaHeroes', { superheroes: superheroesFormateados });
+
+    } catch (error) {
+        res.status(500).send({
+            mensaje: 'Error al obtener superhéroes',
+            error: error.message
+        });
     }
 }

@@ -1,20 +1,5 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-    <title>Lista de Superhéroes</title>
-    <link rel="stylesheet" href="/css/estilos.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body>
     <div class="container">
         <h1>Lista de Superhéroes</h1>
-        <div class="header-actions">
-            <a href="http://localhost:3000/api/formAgregarHero" class="btn btn-success">Crear Nuevo Superhéroe</a>
-        </div>
-        
         <% if (superheroes && superheroes.length > 0) { %>
             <div class="heroes-grid">
                 <% superheroes.forEach((superheroe) => { %>
@@ -41,5 +26,3 @@
             <p class="message">No hay superhéroes registrados aún.</p>
         <% } %>
     </div>
-</body>
-</html>

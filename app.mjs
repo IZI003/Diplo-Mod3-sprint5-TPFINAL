@@ -1,8 +1,11 @@
 import express from 'express';
 import { connectDB } from './config/database.mjs';
+import expressLayouts from 'express-ejs-layouts';
 import routes from './routes/routes.mjs';
 import path from 'path';
 import methodOverride from 'method-override';
+
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -12,6 +15,9 @@ app.use(express.static(path.resolve('public')));
 app.use(methodOverride('_method'));
 
 app.set('view engine', 'ejs');
+// express ejs layouts
+app.set('layout', 'layout');
+app.use(expressLayouts);
 
 // Necesario para recibir datos de formularios HTML (x-www-form-urlencoded)
 app.use(express.urlencoded({ extended: true }));

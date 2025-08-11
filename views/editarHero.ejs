@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-    <title>Actualizar Superhéroe: <%= info.nombreSuperHeroe %></title>
-    <link rel="stylesheet" href="/css/estilos.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body>
     <div class="form-container">
         <h1>Actualizar Superhéroe: <%= info.nombreSuperHeroe %></h1>
-        <form action="http://localhost:3000/api/heroes/actualizar/<%=info._id%>?_method=PUT" method="post">
+        <form action="/api/heroes/actualizar/<%=info.id%>?_method=PUT" method="POST">
             <fieldset>
                 <legend>Información Básica</legend>
                 <div class="form-group">
@@ -58,9 +47,7 @@
 
             <div class="form-actions">
                 <a href="#" class="btn btn-primary" onclick="document.querySelector('form').submit()">Actualizar Superhéroe</a>
-                <a href="http://localhost:3000/api/dashboard" class="btn btn-danger">Cancelar</a>
+                <a href="/api/dashboard" class="btn btn-danger">Cancelar</a>
             </div>
         </form>
     </div>
-</body>
-</html>

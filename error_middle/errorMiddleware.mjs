@@ -15,3 +15,20 @@ export const handleValidationErrors = (req, res, next) => {
 
     next();
 }
+
+// Para formularios HTML que requieren redirección
+export const handleValidationErrorsRedirect = (redirectPath) => {
+    return (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            const erroresStr = encodeURIComponent(JSON.stringify(
+                errors.array().map(error => ({
+                    field: error.param,
+                    message: error.msg
+                }))
+            ));
+            return res.redirect(`${redirectPath}?errores=${erroresStr}`);
+        }
+        next();
+    };
+};

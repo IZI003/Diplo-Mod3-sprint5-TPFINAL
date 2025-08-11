@@ -1,0 +1,68 @@
+<div class="container">
+    <h1>Buscar Superhéroes</h1>
+
+   <form id="form-busqueda" class="search-form">
+    <div class="form-group">
+        <label for="atributo">Buscar por:</label>
+        <select id="atributo" name="atributo" required>
+            <option value="nombreSuperHeroe">Nombre del Superhéroe</option>
+            <option value="nombreReal">Nombre Real</option>
+            <option value="planetaOrigen">Planeta de Origen</option>
+            <option value="creador">Creador</option>
+            <option value="edad">Edad</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="valor">Valor:</label>
+        <input type="text" id="valor" name="valor" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+
+<script>
+document.getElementById('form-busqueda').addEventListener('submit', function(e) {
+    e.preventDefault(); // Evitar que envíe por defecto
+    const atributo = document.getElementById('atributo').value;
+    const valor = document.getElementById('valor').value.trim();
+    if (atributo && valor) {
+        window.location.href = `/api/heroes/buscar/${encodeURIComponent(atributo)}/${encodeURIComponent(valor)}`;
+    }
+});
+</script>
+    <hr>
+    <!-- Resultados -->
+    <h2>Resultados</h2>
+    <% if (superheroes && superheroes.length > 0) { %>
+        <div class="heroes-grid">
+            <% superheroes.forEach((superheroe) => { %>
+                <div class="hero-card">
+                    <h2><%= superheroe.nombreSuperHeroe %></h2>
+                    <ul>
+                        <li><strong>Nombre Real:</strong> <%= superheroe.nombreReal %></li>
+                        <li><strong>Edad:</strong> <%= superheroe.edad %></li>
+                        <li><strong>Planeta de Origen:</strong> <%= superheroe.planetaOrigen || 'N/A' %></li>
+                        <li><strong>Debilidad:</strong> <%= superheroe.debilidad || 'N/A' %></li>
+                        <li><strong>Poderes:</strong> <%= superheroe.poderes?.length ? superheroe.poderes.join(', ') : 'N/A' %></li>
+                        <li><strong>Aliados:</strong> <%= superheroe.aliados?.length ? superheroe.aliados.join(', ') : 'N/A' %></li>
+                        <li><strong>Enemigos:</strong> <%= superheroe.enemigos?.length ? superheroe.enemigos.join(', ') : 'N/A' %></li>
+                        <li><strong>Creador:</strong> <%= superheroe.creador || 'N/A' %></li>
+                    </ul>
+                    <div class="hero-actions">
+                        <a href="/api/formEditarHero/<%= superheroe.id %>" class="btn btn-primary">Actualizar</a>
+                        <a href="/api/confirmarEliminar/<%= superheroe.id %>" class="btn btn-danger">Eliminar</a>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+            <% } else { %>
+            <% if (errores && errores.length) { %>
+                    <div class="error-box">
+                        <ul>
+                            <% errores.forEach(e => { %>
+                                <li><%= e.message %></li>
+                            <% }) %>
+                        </ul>
+                    </div>
+                <% } %>
+    <% } %>
+</div>

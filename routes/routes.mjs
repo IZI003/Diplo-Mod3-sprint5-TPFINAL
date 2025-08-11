@@ -12,19 +12,21 @@ import {
     formAgregarHeroController,
     formActualizarHeroeController,
     confirmarEliminacionController,
-    dashboardController
+    dashboardController,
+    aboutController,
+    busquedaController
 
 } from '../controllers/superHeroController.mjs';
 import { registerValidationRules } from '../validations/validationRules.mjs';
-import { handleValidationErrors } from '../error_middle/errorMiddleware.mjs'
+import { handleValidationErrors, handleValidationErrorsRedirect } from '../error_middle/errorMiddleware.mjs'
 const router = express.Router();
 
 router.get('/heroes', obtenerTodosLosSuperheroesController);
 router.get('/heroes/mayores-30', obtenerSuperheroesMayoresDe30Controller);
 router.get('/heroes/:id', obtenerSuperheroePorIdController);
-router.get('/heroes/buscar/:atributo/:valor', buscarSuperheroesPorAtributoController);
+router.get('/heroes/buscar/:atributo/:valor', handleValidationErrorsRedirect('/api/busquedaHeroes'), buscarSuperheroesPorAtributoController);
 
-router.post('/heroes/insertar', registerValidationRules(), handleValidationErrors, insertarSuperHeroeController);
+//router.post('/heroes/insertar', registerValidationRules(), handleValidationErrors, insertarSuperHeroeController);
 router.put('/heroes/actualizar/:id', registerValidationRules(), handleValidationErrors, actualizarSuperHeroeController)
 
 router.delete('/heroes/eliminar/id/:id', eliminarSuperHeroeIdController)
@@ -35,6 +37,12 @@ router.get('/formAgregarHero', formAgregarHeroController);
 router.get('/formEditarHero/:id', formActualizarHeroeController);
 router.get('/confirmarEliminar/:id', confirmarEliminacionController);
 router.get('/dashboard', dashboardController);
+router.get('/about', aboutController);
+router.get('/busquedaHeroes', busquedaController);
+
+
+// Rutas API
+router.post('/heroes/insertar', registerValidationRules(), handleValidationErrorsRedirect('/api/formAgregarHero'), insertarSuperHeroeController);
 
 
 

@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Crear Superhéroe</title>
-    <link rel="stylesheet" href="/css/estilos.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body>
     <div class="form-container">
         <h1>Insertar Superhéroe</h1>
-        <form action="http://localhost:3000/api/heroes/insertar" method="post">
+        <form action="/api/heroes/insertar" method="post">
             <fieldset>
                 <legend>Información Básica</legend>
                 <div class="form-group">
@@ -55,9 +44,18 @@
 
            <div class="form-actions">
                 <a href="#" class="btn btn-primary" onclick="document.querySelector('form').submit()">Crear Superhéroe</a>
-                <a href="http://localhost:3000/api/dashboard" class="btn btn-danger">Cancelar</a>
+                <a href="/api/dashboard" class="btn btn-danger">Cancelar</a>
             </div>
         </form>
+        <% if (errores && errores.length) { %>
+            <div class="error-box">
+                <ul>
+                    <% errores.forEach(e => { %>
+                        <li><%= e.message %></li>
+                    <% }) %>
+                </ul>
+            </div>
+        <% } %>
     </div>
-</body>
-</html>
+
+    

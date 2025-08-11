@@ -1,14 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-    <title>Confirmar Eliminación</title>
-    <link rel="stylesheet" href="/css/estilos.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body>
     <div class="confirmation-container">
         <h1>¿Confirmar Eliminación?</h1>
         <% if (info) { %>
@@ -16,15 +5,13 @@
             <p>¿Seguro de que quieres continuar?</p>
 
             <div class="confirmation-buttons">
-                <form action="http://localhost:3000/api/heroes/eliminar/id/<%= info._id %>?_method=DELETE" method="post" style="display: inline;">
+                <form action="/api/heroes/eliminar/id/<%= info._id %>?_method=DELETE" method="post" style="display: inline;">
                     <a href="#" class="btn btn-danger" onclick="document.querySelector('form').submit()">Sí, Eliminar</button>
                 </form>
-                <a href="http://localhost:3000/api/dashboard" class="btn btn-primary">Cancelar</a>
+                <a href="/api/dashboard" class="btn btn-primary">Cancelar</a>
             </div>
         <% } else { %>
             <p class="message error">No se pudo encontrar el superhéroe para confirmar la eliminación.</p>
-            <a href="http://localhost:3000/api/dashboard" class="btn btn-secondary">Volver a la lista</a>
+            <a href="/api/dashboard" class="btn btn-secondary">Volver a la lista</a>
         <% } %>
     </div>
-</body>
-</html>secondary
