@@ -25,7 +25,7 @@ document.getElementById('form-busqueda').addEventListener('submit', function(e) 
     const atributo = document.getElementById('atributo').value;
     const valor = document.getElementById('valor').value.trim();
     if (atributo && valor) {
-        window.location.href = `/api/heroes/buscar/${encodeURIComponent(atributo)}/${encodeURIComponent(valor)}`;
+        window.location.href = `/heroes/buscar/${encodeURIComponent(atributo)}/${encodeURIComponent(valor)}`;
     }
 });
 </script>
@@ -48,8 +48,8 @@ document.getElementById('form-busqueda').addEventListener('submit', function(e) 
                         <li><strong>Creador:</strong> <%= superheroe.creador || 'N/A' %></li>
                     </ul>
                     <div class="hero-actions">
-                        <a href="/api/formEditarHero/<%= superheroe.id %>" class="btn btn-primary">Actualizar</a>
-                        <a href="/api/confirmarEliminar/<%= superheroe.id %>" class="btn btn-danger">Eliminar</a>
+                        <a href="/formEditarHero/<%= superheroe.id %>" class="btn btn-primary">Actualizar</a>
+                        <a href="/confirmarEliminar/<%= superheroe.id %>" class="btn btn-danger">Eliminar</a>
                     </div>
                 </div>
             <% }) %>

@@ -113,14 +113,14 @@ export async function obtenerSuperheroesMayoresDe30Controller(req, res) {
 export async function insertarSuperHeroeController(req, res) {
     try {
         await crearheroe(req.body);
-        res.redirect('/api/dashboard');
+        res.redirect('/dashboard');
     } catch (err) {
         console.error('❌ Error al guardar el héroe:', err.message);
 
         // Pasamos errores como string en la URL
         const erroresStr = encodeURIComponent(JSON.stringify(err.errors || [{ message: err.message }]));
 
-        res.redirect(`/api/formAgregarHero?errores=${erroresStr}`);
+        res.redirect(`/formAgregarHero?errores=${erroresStr}`);
     }
 }
 
@@ -137,7 +137,7 @@ export async function actualizarSuperHeroeController(req, res) {
 
         //res.status(200).json({ mensaje: 'Heroe Actualizado', heroe: heroe_actualizado });
         //solo con el fin de dar dinamismo al html que vamos a redirigir desde aqui al dashboard
-        res.redirect('/api/dashboard');
+        res.redirect('/dashboard');
     } catch (err) {
         res.status(500).send({ mensaje: 'Error al actualizar el superheroe', error: err.message });
     }
@@ -155,7 +155,7 @@ export async function eliminarSuperHeroeIdController(req, res) {
 
         //res.status(200).json({ mensaje: 'Heroe Elimiado', heroe: superheroe_eliminado }); // Responde con un mensaje y el héroe eliminado
         //solo con el fin de dar dinamismo al html que vamos a redirigir desde aqui al dashboard
-        res.redirect('/api/dashboard');
+        res.redirect('/dashboard');
     } catch (err) {
         res.status(500).send({ mensaje: 'Error al eliminar el superheroe' });
     }
@@ -231,7 +231,7 @@ export async function formActualizarHeroeController(req, res) {
         }
         const superheroesFormateados = renderizarSuperheroe(superheroe);
         res.render('editarHero', { info: superheroesFormateados });
-       // res.render('editarHero', { info: superheroe });
+        res.render('editarHero', { info: superheroe });
     } catch (error) {
         console.error('Error en formActualizarHeroeController:', error);
         res.status(500).send('Error interno al cargar el formulario de edición.');

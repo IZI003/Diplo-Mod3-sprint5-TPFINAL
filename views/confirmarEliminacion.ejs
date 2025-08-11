@@ -5,13 +5,13 @@
             <p>¿Seguro de que quieres continuar?</p>
 
             <div class="confirmation-buttons">
-                <form action="/api/heroes/eliminar/id/<%= info._id %>?_method=DELETE" method="post" style="display: inline;">
+                <form action="/heroes/eliminar/id/<%= info._id %>?_method=DELETE" method="post" style="display: inline;">
                     <a href="#" class="btn btn-danger" onclick="document.querySelector('form').submit()">Sí, Eliminar</button>
                 </form>
-                <a href="/api/dashboard" class="btn btn-primary">Cancelar</a>
+                <a href="/dashboard" class="btn btn-primary">Cancelar</a>
             </div>
         <% } else { %>
             <p class="message error">No se pudo encontrar el superhéroe para confirmar la eliminación.</p>
-            <a href="/api/dashboard" class="btn btn-secondary">Volver a la lista</a>
+            <a href="/dashboard" class="btn btn-secondary">Volver a la lista</a>
         <% } %>
     </div>

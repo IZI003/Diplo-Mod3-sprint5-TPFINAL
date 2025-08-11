@@ -23,7 +23,7 @@ app.use(expressLayouts);
 app.use(express.urlencoded({ extended: true }));
 connectDB();
 
-app.use('/api', routes);
+app.use('', routes);
 
 app.use((req, res) => {
     res.status(404).send({ mensaje: "Ruta no encontrada" });

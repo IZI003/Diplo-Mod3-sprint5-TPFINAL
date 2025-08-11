@@ -1,6 +1,6 @@
     <div class="form-container">
         <h1>Insertar Superhéroe</h1>
-        <form action="/api/heroes/insertar" method="post">
+        <form action="/heroes/insertar" method="post">
             <fieldset>
                 <legend>Información Básica</legend>
                 <div class="form-group">
@@ -44,7 +44,7 @@
 
            <div class="form-actions">
                 <a href="#" class="btn btn-primary" onclick="document.querySelector('form').submit()">Crear Superhéroe</a>
-                <a href="/api/dashboard" class="btn btn-danger">Cancelar</a>
+                <a href="/dashboard" class="btn btn-danger">Cancelar</a>
             </div>
         </form>
         <% if (errores && errores.length) { %>

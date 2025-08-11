@@ -1,6 +1,6 @@
     <div class="form-container">
         <h1>Actualizar Superhéroe: <%= info.nombreSuperHeroe %></h1>
-        <form action="/api/heroes/actualizar/<%=info.id%>?_method=PUT" method="POST">
+        <form action="/heroes/actualizar/<%=info.id%>?_method=PUT" method="POST">
             <fieldset>
                 <legend>Información Básica</legend>
                 <div class="form-group">
@@ -47,7 +47,7 @@
 
             <div class="form-actions">
                 <a href="#" class="btn btn-primary" onclick="document.querySelector('form').submit()">Actualizar Superhéroe</a>
-                <a href="/api/dashboard" class="btn btn-danger">Cancelar</a>
+                <a href="/dashboard" class="btn btn-danger">Cancelar</a>
             </div>
         </form>
     </div>
