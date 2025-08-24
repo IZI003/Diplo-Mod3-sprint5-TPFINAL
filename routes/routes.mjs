@@ -1,50 +1,42 @@
 import express from 'express';
+import { registerValidationRules } from '../validations/validationRules.mjs';
+import { handleValidationErrors, handleValidationErrorsRedirect } from '../error_middle/errorMiddleware.mjs'
 import {
-    obtenerSuperheroePorIdController,
-    obtenerTodosLosSuperheroesController,
-    buscarSuperheroesPorAtributoController,
-    obtenerSuperheroesMayoresDe30Controller,
-    insertarSuperHeroeController,
-    eliminarSuperHeroeIdController,
-    eliminarSuperHeroeNombreController,
-    actualizarSuperHeroeController,
+    actualizarPaisController,
+    buscarPaisPorAtributoController,
+    formActualizarPaisController, insertarPaisController,
+    obtenerPaisPorIdController,
+    obtenerTodosLosPaisesController,
 
-    formAgregarHeroController,
-    formActualizarHeroeController,
     confirmarEliminacionController,
     dashboardController,
     aboutController,
-    busquedaController
-
-} from '../controllers/superHeroController.mjs';
-import { registerValidationRules } from '../validations/validationRules.mjs';
-import { handleValidationErrors, handleValidationErrorsRedirect } from '../error_middle/errorMiddleware.mjs'
+    formAgregarPaisController,
+    busquedaPaisesController,
+    insertarPaisAPIController,
+    eliminarPaisIdController,
+    landingController,
+} from '../controllers/paisController.mjs';
+import { validateResult } from '../validations/validateResult.mjs';
 const router = express.Router();
+// Rutas API
+router.post('/pais/insertar', registerValidationRules(), validateResult('AgregarPais'), insertarPaisController);
+router.post('/pais/insertarApi', registerValidationRules(), insertarPaisAPIController);
+router.get('/pais', obtenerTodosLosPaisesController);
+router.get('/pais/:id', obtenerPaisPorIdController);
+router.get('/pais/buscar/:atributo/:valor', handleValidationErrorsRedirect('/busquedaPais'), buscarPaisPorAtributoController);
 
-router.get('/heroes', obtenerTodosLosSuperheroesController);
-router.get('/heroes/mayores-30', obtenerSuperheroesMayoresDe30Controller);
-router.get('/heroes/:id', obtenerSuperheroePorIdController);
-router.get('/heroes/buscar/:atributo/:valor', handleValidationErrorsRedirect('/busquedaHeroes'), buscarSuperheroesPorAtributoController);
+router.put('/pais/actualizar/:id', registerValidationRules(), handleValidationErrorsRedirect('/formEditarPais'), actualizarPaisController)
 
-//router.post('/heroes/insertar', registerValidationRules(), handleValidationErrors, insertarSuperHeroeController);
-router.put('/heroes/actualizar/:id', registerValidationRules(), handleValidationErrors, actualizarSuperHeroeController)
-
-router.delete('/heroes/eliminar/id/:id', eliminarSuperHeroeIdController)
-router.delete('/heroes/eliminar/nombre/:nombre', eliminarSuperHeroeNombreController);
-
+router.delete('/pais/eliminar/id/:id', eliminarPaisIdController)
 // Formularios
-router.get('/formAgregarHero', formAgregarHeroController);
-router.get('/formEditarHero/:id', formActualizarHeroeController);
+router.get('/formAgregarPais', formAgregarPaisController);
+router.get('/formEditarPais/:id', formActualizarPaisController);
 router.get('/confirmarEliminar/:id', confirmarEliminacionController);
 router.get('/dashboard', dashboardController);
-router.get('/', dashboardController);
+router.get('/', landingController);
 router.get('/about', aboutController);
-router.get('/busquedaHeroes', busquedaController);
-
-
-// Rutas API
-router.post('/heroes/insertar', registerValidationRules(), handleValidationErrorsRedirect('/formAgregarHero'), insertarSuperHeroeController);
-
-
+router.get('/landing', landingController);
+router.get('/busquedaPaises', busquedaPaisesController);
 
 export default router;

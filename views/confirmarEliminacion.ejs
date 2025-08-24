@@ -1,11 +1,11 @@
     <div class="confirmation-container">
         <h1>¿Confirmar Eliminación?</h1>
         <% if (info) { %>
-            <p>Deseas eliminar a <%= info.nombreSuperHeroe %> de la base de datos.</p>
+            <p>Deseas eliminar a <%= info.nombre %> de la base de datos.</p>
             <p>¿Seguro de que quieres continuar?</p>
 
             <div class="confirmation-buttons">
-                <form action="/heroes/eliminar/id/<%= info._id %>?_method=DELETE" method="post" style="display: inline;">
+                <form action="/pais/eliminar/id/<%= info._id %>?_method=DELETE" method="post" style="display: inline;">
                     <a href="#" class="btn btn-danger" onclick="document.querySelector('form').submit()">Sí, Eliminar</button>
                 </form>
                 <a href="/dashboard" class="btn btn-primary">Cancelar</a>

@@ -1,0 +1,83 @@
+<div class="container">
+<div class="constent-landing">
+
+    <div class="landing">
+    <h1>Gestión de Países</h1>
+    <p>
+      Esta sección te permite administrar la información de los países dentro del sistema.
+      Aquí podrás <strong>crear nuevos registros</strong>, <strong>editar</strong> los existentes
+      y mantener actualizado el catálogo de países que se usa en las demás partes de la aplicación.
+    </p>
+    <p>
+      Tener un listado de países actualizado es fundamental para garantizar
+      que todos los procesos (usuarios, direcciones, reportes, etc.)
+      utilicen información consistente y estandarizada.
+    </p>
+    <a href="/paises" class="btn">Ir a la gestión de países</a>
+
+</div>
+
+    <h1>Buscar Pais</h1>
+   <form id="form-busqueda" class="search-form">
+    <div class="form-group">
+        <label for="atributo">Buscar por:</label>
+        <select id="atributo" name="atributo" required>
+            <option value="nombre">Nombre</option>
+            <option value="capital">Capital</option>
+            <option value="fronteras">Fronteras</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="valor">Valor:</label>
+        <input type="text" id="valor" name="valor" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+
+<script>
+document.getElementById('form-busqueda').addEventListener('submit', function(e) {
+    e.preventDefault(); // Evitar que envíe por defecto
+    const atributo = document.getElementById('atributo').value;
+    const valor = document.getElementById('valor').value.trim();
+    if (atributo && valor) {
+        window.location.href = `/pais/buscar/${encodeURIComponent(atributo)}/${encodeURIComponent(valor)}`;
+    }
+});
+</script>
+    <hr>
+    <h2>Nuestra Base de datos de Paises</h2>
+    <% if (paises && paises.length > 0) { %>
+        <div class="paises-grid">
+            <% paises.forEach((pais) => { %>
+                <div class="pais-card">
+                    <h2><%= pais.nombre %></h2>
+                    <ul>
+                        <li><strong>Capital:</strong> <%= pais.capital || 'N/A' %></li>
+                        <li><strong>Fronteras:</strong> <%= pais.fronteras || 'N/A' %></li>
+                        <li><strong>Bandera:</strong> 
+                            
+                            <% if (pais.bandera) { %>
+                        <img src="<%= pais.bandera %>" alt="Bandera de <%= pais.nombre %>" style="width:50px; border:1px solid #ccc;">
+                        <% } else { %> N/A <% } %>
+                        <li><strong>Creador:</strong> <%= pais.creador || 'N/A' %></li>
+                    </ul>
+                    <div class="pais-actions">
+                        <a href="/formEditarPais/<%= pais.id %>" class="btn btn-primary">Actualizar</a>
+                        <a href="/confirmarEliminar/<%= pais.id %>" class="btn btn-danger">Eliminar</a>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+            <% } else { %>
+            <% if (errores && errores.length) { %>
+                    <div class="error-box">
+                        <ul>
+                            <% errores.forEach(e => { %>
+                                <li><%= e.message %></li>
+                            <% }) %>
+                        </ul>
+                    </div>
+                <% } %>
+    <% } %>
+</div>
+</div>

@@ -1,0 +1,121 @@
+    <div class="form-container">
+        <h1>Insertar Pais</h1>
+        <% if (errores?.message) { %>
+            <div class="error-box">
+                <ul>
+                          <div class="alert <%= errores.type === 'success' ? 'alert-success' : 'alert-danger' %>">
+                            <%= errores.message %></div>
+                </ul>
+            </div>
+        <% } %>
+            <form action="/pais/insertarApi" method="post">
+                    <button type="submit" class="btn btn-primary">Crear Países Desde API</button>
+            </form>
+        <form action="/pais/insertar" method="post">
+            <fieldset>
+                <legend>Información Básica</legend>
+
+                <div class="form-group">
+                    <label for="nombre">Nombre del Pais:</label>
+                    <input type="text" id="nombre" name="nombre" value="<%= info?.nombre || '' %>">
+                        <% if (errores?.nombre) { %>
+                          <div class="error-message"><%= errores.nombre %></div>
+                        <% } %>
+                </div>
+
+                <div class="form-group">
+                    <label for="capital">Capital/es del Pais (separados por comas):</label>
+                    <input 
+                        type="text" 
+                        id="capital" 
+                        name="capital" 
+                        value="<%= info?.capital || '' %>" 
+                        class="<%= errores?.capital ? 'input-error' : '' %>"
+                    >
+                    <% if (errores?.capital) { %>
+                        <div class="error-message"><%= errores.capital %></div>
+                    <% } %>
+
+                   
+                </div>
+
+                <div class="form-group">
+                    <label for="fronteras">Fronteras (separados por comas):</label>
+                    <input 
+                        type="text" 
+                        id="fronteras" 
+                        name="fronteras" 
+                        value="<%= info?.fronteras || '' %>" 
+                        class="<%= errores?.fronteras ? 'input-error' : '' %>"
+                    >
+                     <% if (errores?.fronteras) { %>
+                        <div class="error-message"><%= errores.fronteras %></div>
+                    <% } %>
+                </div>
+
+                <div class="form-group">
+                    <label for="area">Area:</label>
+                    <input 
+                        type="number" 
+                        id="area" 
+                        name="area" 
+                        value="<%= info?.area || '' %>" 
+                        class="<%= errores?.area ? 'input-error' : '' %>"
+                    >
+                   <% if (errores?.area) { %>
+                        <div class="error-message"><%= errores.area %></div>
+                    <% } %>
+                </div>
+
+                <div class="form-group">
+                    <label for="poblacion">Poblacion:</label>
+                    <input 
+                        type="number" 
+                        id="poblacion" 
+                        name="poblacion" 
+                        value="<%= info?.poblacion || '' %>" 
+                        class="<%= errores?.poblacion ? 'input-error' : '' %>"
+                    >
+                   <% if (errores?.poblacion) { %>
+                        <div class="error-message"><%= errores.poblacion %></div>
+                    <% } %>
+                </div>
+
+                <div class="form-group">
+                    <label for="bandera">Bandera:</label>
+                    <input 
+                        type="text" 
+                        id="bandera" 
+                        name="bandera" 
+                        value="<%= info?.bandera || '' %>" 
+                        class="<%= errores?.bandera ? 'input-error' : '' %>"
+                    >
+                   <% if (errores?.bandera) { %>
+                        <div class="error-message"><%= errores.bandera %></div>
+                    <% } %>
+                </div>
+
+                <div class="form-group">
+                    <label for="timezones">Timezones (separados por comas):</label>
+                    <input 
+                        type="text" 
+                        id="timezones" 
+                        name="timezones" 
+                        value="<%= info?.timezones || '' %>" 
+                        class="<%= errores?.timezones ? 'input-error' : '' %>"
+                    >
+                   <% if (errores?.timezones) { %>
+                        <div class="error-message"><%= errores.timezones %></div>
+                    <% } %>
+                </div>
+            </fieldset>
+
+           <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Crear País</button>
+                <a href="/dashboard" class="btn btn-danger">Cancelar</a>
+            </div>
+        </form>
+        
+    </div>
+
+    

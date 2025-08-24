@@ -4,7 +4,7 @@ import expressLayouts from 'express-ejs-layouts';
 import routes from './routes/routes.mjs';
 import path from 'path';
 import methodOverride from 'method-override';
-
+import 'dotenv/config';
 
 const app = express();
 const PORT = process.env.PORT || 3000;

@@ -1,9 +1,36 @@
 <div class="container">
-    <% if (msg) { %>
-        <div class="alert <%= type === 'success' ? 'alert-success' : 'alert-danger' %>">
-            <%= msg %>
-        </div>
-    <% } %>
+     <h1>Buscar Pais</h1>
+
+   <form id="form-busqueda" class="search-form">
+    <div class="form-group">
+        <label for="atributo">Buscar por:</label>
+        <select id="atributo" name="atributo" required>
+            <option value="nombre">Nombre</option>
+            <option value="capital">Capital</option>
+            <option value="fronteras">Fronteras</option>
+
+            <option value="area">Área</option>
+            <option value="poblacion">Población</option>
+                    
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="valor">Valor:</label>
+        <input type="text" id="valor" name="valor" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+
+<script>
+document.getElementById('form-busqueda').addEventListener('submit', function(e) {
+    e.preventDefault(); // Evitar que envíe por defecto
+    const atributo = document.getElementById('atributo').value;
+    const valor = document.getElementById('valor').value.trim();
+    if (atributo && valor) {
+        window.location.href = `/pais/buscar/${encodeURIComponent(atributo)}/${encodeURIComponent(valor)}`;
+    }
+});
+</script>
 
     <h1>Lista de Países</h1>
 
@@ -63,10 +90,10 @@
             <div class="rows-selector">
             <label for="rowsPerPage">Filas por página:</label>
             <select id="rowsPerPage">
-                <option value="2" >2</option>
-                <option value="3" >3</option>
-                <option value="5">5</option>
+                <option value="5" >5</option>
                 <option value="10" >10</option>
+                <option value="20">20</option>
+                <option value="50" >50</option>
             </select>
             </div>
         <!-- Paginación -->
@@ -107,8 +134,8 @@
         count++;
       }
     });
-    subtotalAreaEl.textContent = area.toLocaleString('es-AR');
-    subtotalPoblacionEl.textContent = poblacion.toLocaleString('es-AR');
+    subtotalAreaEl.textContent = area;
+    subtotalPoblacionEl.textContent = poblacion;
     subtotalPaisesEl.textContent = count;
   }
 
@@ -123,7 +150,7 @@
       row.style.display = (i >= start && i < end) ? "" : "none";
     });
 
-    pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
+    pageInfo.textContent = `Página ${currentPage} de ${totalPages} total de paises: ${rows.length}`;
     prevBtn.disabled = currentPage === 1;
     nextBtn.disabled = currentPage === totalPages;
 

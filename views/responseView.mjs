@@ -1,19 +1,17 @@
-export function renderizarSuperheroe(superheroe) {
+export function renderizarPais(pais) {
     return {
-
-        id: superheroe._id,
-        nombreSuperHeroe: superheroe.nombreSuperHeroe,
-        nombreReal: superheroe.nombreReal,
-        edad: superheroe.edad,
-        planetaOrigen: superheroe.planetaOrigen,
-        debilidad: superheroe.debilidad,
-        poderes: superheroe.poderes,
-        aliados: superheroe.aliados,
-        enemigos: superheroe.enemigos,
-        creador: superheroe.creador
+        id: pais._id,
+        nombre: pais.nombre,
+        capital: pais.capital,
+        area: pais.area,
+        fronteras: pais.fronteras,
+        poblacion: pais.poblacion,
+        bandera: pais.bandera,
+        timezones: pais.timezones,
+        creador: pais.creador
     };
 }
 
-export function renderizarListaSuperheroes(superheroes) {
-    return superheroes.map(superheroe => renderizarSuperheroe(superheroe));
+export function renderizarListaPaises(paises) {
+    return paises.map(pais => renderizarPais(pais));
 }

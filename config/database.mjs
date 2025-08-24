@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-
+import 'dotenv/config';
 export async function connectDB() {
     try {
-        await mongoose.connect('mongodb+srv://grupo-01:grupo01@cursadanodejs.ls9ii.mongodb.net/Node-js');
+        await mongoose.connect(process.env.MONGO_URI,);
         console.log('✅ Conectado a MongoDB');
     } catch (err) {
         console.error('❌ Error al conectar a MongoDB:', err);

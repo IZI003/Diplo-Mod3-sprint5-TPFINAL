@@ -11,12 +11,8 @@ class IRepository {
         throw new Error("Método 'buscarPorAtributo()' no implementado");
     }
 
-    obtenerMayoresDe30() {
-        throw new Error("Método 'obtenerMayoresDe30()' no implementado");
-    }
-
-    crearHereo(body) {
-        throw new Error('Metodo crearHereo() no implementado');
+    crearPais(body) {
+        throw new Error('Metodo crearPais() no implementado');
     }
 
     actualizar(id, body) {
